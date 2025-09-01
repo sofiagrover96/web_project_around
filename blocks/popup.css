@@ -23,12 +23,12 @@
 }
 
 .popup__button_close {
-  position: absolute;
+  position: relative;
   font-size: 40px;
   border: none;
   background-color: rgba(0, 0, 0, 0);
-  right: 200px;
-  top: 150px;
+  right: -650px;
+  top: 10px;
 }
 
 .popup__button_close:hover {
@@ -75,10 +75,10 @@
   opacity: 0.5;
 }
 
-@media screen and (min-widht: 320px) and (max-widht: 585px) {
+@media screen and (min-width: 320px) and (max-width: 585px) {
   .popup__button_close {
-    right: 300px;
-    top: 100px;
+    margin-left: -79px;
+    top: 2px;
   }
 
   .popup__container {
@@ -101,8 +101,7 @@
 
 @media screen and (min-width: 585px) and (max-width: 880px) {
   .popup__button_close {
-    right: 300px;
-    top: 100px;
+    right: -580px;
   }
 
   .popup__container {
