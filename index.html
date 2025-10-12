@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="page">
-      <div class="popup popup_opened">
+      <div class="popup" id="edit-profile-popup">
         <button type="button" class="popup__button popup__button_close"> x </button>
         <form action class="popup__container">
           <h2 class="popup__subtitle">Editar perfil</h2>
@@ -23,7 +23,33 @@
           <button type="submit" class="popup__button popup__button_save">Guardar</button>
          </fieldset>
         </form>
+      </div>  
+
+       <div class="popup" id="add-place-popup">
+        <button type="button" class="popup__button popup__button_close"> x </button>
+
+        </form>
+        <form action class="popup__container">
+          <h2 class="popup__subtitle">Nuevo lugar</h2>
+          <fieldset class="popup__container">
+            <input type="text" class="popup__input popup__input_title" placeholder="titulo">
+            <input type="text" class="popup__input popup__input_imageURL" placeholder="image URL">
+          </fieldset>
+          <fieldset class="popup__content">
+          <button type="submit" class="popup__button popup__button_save">Guardar</button>
+         </fieldset>
+        </form>
       </div> 
+
+      <div class="popup popup_type_image">
+        <div class="popup__type_image">
+          <button class="popup__close-button" type="button"> X </button>
+          <img class="popup__image" src="#" alt="#">
+          <p class="popup__caption"></p>
+        </div>
+      </div>
+
+
       <header class="header">
             <img src="./images/Vector.svg" alt="logo-page" class="header__image">
       </header>
@@ -53,7 +79,10 @@
             <div class="main__gallery-content">
             <p class="main__gallery-paragraph">Valle de Yosemite</p>
             <button type="button" class="main__button main__button-like">
-              <img src="./images/Vector (2).svg" alt="like" class="main__gallery-like">
+              <img src="./images/Vector.svg" alt="like" class="main__gallery-like">
+            </button>
+            <button class="main__delete-button" type="button">
+              <img src="./images/Trash (1).svg" alt="trash" class="main__gallery-trash">
             </button>
           </div>
         </div> 
@@ -66,7 +95,10 @@
           <div class="main__gallery-content">
             <p class="main__gallery-paragraph">Lago Louise</p>
             <button type="button" class="main__button main__button-like">
-              <img src="./images/Vector (2).svg" alt="like" class="main__gallery-like">
+              <img src="./images/Vector.svg" alt="like" class="main__gallery-like">
+            </button>
+            <button class="main__delete-button" type="button">
+              <img src="./images/Trash (1).svg" alt="trash" class="main__gallery-trash">
             </button>
           </div>
         </div> 
@@ -79,7 +111,10 @@
           <div class="main__gallery-content">
             <p class="main__gallery-paragraph">Montañas Calvas</p>
             <button type="button" class="main__button main__button-like">
-              <img src="./images/Vector (2).svg" alt="like" class="main__gallery-like">
+              <img src="./images/Vector.svg" alt="like" class="main__gallery-like">
+            </button>
+            <button class="main__delete-button" type="button">
+              <img src="./images/Trash (1).svg" alt="trash" class="main__gallery-trash">
             </button>
           </div>
         </div> 
@@ -92,7 +127,10 @@
           <div class="main__gallery-content">
             <p class="main__gallery-paragraph">Latemar</p>
             <button type="button" class="main__button main__button-like">
-              <img src="./images/Vector (2).svg" alt="like" class="main__gallery-like">
+              <img src="./images/Vector.svg" alt="like" class="main__gallery-like">
+            </button>
+            <button class="main__delete-button" type="button">
+              <img src="./images/Trash (1).svg" alt="trash" class="main__gallery-trash">
             </button>
           </div>
         </div> 
@@ -105,7 +143,10 @@
           <div class="main__gallery-content">
             <p class="main__gallery-paragraph">Vanois National Park</p>
             <button type="button" class="main__button main__button-like">
-              <img src="./images/Vector (2).svg" alt="like" class="main__gallery-like">
+              <img src="./images/Vector.svg" alt="like" class="main__gallery-like">
+            </button>
+            <button class="main__delete-button" type="button">
+              <img src="./images/Trash (1).svg" alt="trash" class="main__gallery-trash">
             </button>
           </div>
         </div> 
@@ -118,17 +159,24 @@
           <div class="main__gallery-content">
             <p class="main__gallery-paragraph">Lago di Braies</p>
             <button type="button" class="main__button main__button-like">
-              <img src="./images/Vector (2).svg" alt="like" class="main__gallery-like">
+              <img src="./images/Vector.svg" alt="like" class="main__gallery-like">
+            </button>
+            <button class="main__delete-button" type="button">
+              <img src="./images/Trash (1).svg" alt="trash" class="main__gallery-trash">
             </button>
           </div>
         </div> 
       </div>
       </main>
+
       <footer class="footer">
           <p class="footer__copyright">© 2024 Around The U.S.</p>
         </div>
       </footer>
     </div>
-    <script src="./scripts/index.js"></script>
+    <script src="scripts/index.js"></script>
   </body>
 </html>
+
+
+
