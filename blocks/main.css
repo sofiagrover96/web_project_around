@@ -90,10 +90,11 @@
 
 .main__gallery-card {
   position: relative;
-  max-width: 290px;
   background-color: #fff;
+  max-width: 290px;
   color: #000;
   border-radius: 27px;
+  width: 100%;
 }
 
 .main__gallery-image {

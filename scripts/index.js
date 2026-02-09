@@ -27,7 +27,7 @@ const initialCards = [
 
 const popup = document.querySelector("#edit-profile-popup");
 let popBuClose = document.querySelectorAll(".popup__button_close");
-let popContain = document.querySelector(".popup__container");
+let editProfileForm = document.querySelector('form[name="edit-profile"]');
 let popInName = document.querySelector(".popup__input_name");
 let popInAbout = document.querySelector(".popup__input_about");
 let mainBuEdit = document.querySelector(".main__button_edit");
@@ -48,6 +48,20 @@ function closeEdit() {
   });
 }
 
+function addCloseOnOverlay(popup, closeFunction) {
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target === popup) {
+      closeFunction();
+    }
+  });
+}
+
+const editPopup = document.querySelector("#edit-profile-popup");
+const addPlacePopup = document.querySelector("#add-place-popup");
+
+addCloseOnOverlay(editPopup, closeEdit);
+addCloseOnOverlay(addPlacePopup, closeEdit);
+
 mainBuEdit.addEventListener("click", openEdit);
 popBuClose.forEach((button) => {
   button.addEventListener("click", closeEdit);
@@ -63,9 +77,6 @@ function saveChange(e) {
   console.log("Popup encontrado:", addPlacePopup);
 }
 
-popContain.addEventListener("submit", saveChange);
-
-const addPlacePopup = document.querySelector("#add-place-popup");
 const addButton = document.querySelector(".main__button_add");
 
 function openPopup(popup) {
@@ -76,7 +87,7 @@ addButton.addEventListener("click", () => {
   openPopup(addPlacePopup);
 });
 
-popContain.addEventListener("submit", saveChange);
+editProfileForm.addEventListener("submit", saveChange);
 
 function addLikeListener(likeImage) {
   likeImage.addEventListener("click", function () {
@@ -103,7 +114,6 @@ function createCard(name, link) {
   imageElement.addEventListener("click", function () {
     openImagePopup(link, `paisaje de ${name}`);
   });
-  cardElement.appendChild(imageElement);
 
   const contentElement = document.createElement("div");
   contentElement.className = "main__gallery-content";
@@ -115,12 +125,12 @@ function createCard(name, link) {
   contentElement.appendChild(textElement);
 
   const likeButton = document.createElement("button");
-  likeButton.className = "main__gallery-like";
+  likeButton.className = "main__button main__button-like";
   likeButton.type = "button";
   contentElement.appendChild(likeButton);
 
   likeButton.className = "main__button main__button-like";
-  likeButton.tyoe = "button";
+  likeButton.type = "button";
 
   const likeImage = document.createElement("img");
   likeImage.src = "./images/Vector.svg";
@@ -137,7 +147,7 @@ function createCard(name, link) {
   deleteButton.type = "button";
 
   const trashImage = document.createElement("img");
-  trashImage.src = "./images/trash (1).svg";
+  trashImage.src = "./images/trash.svg";
   trashImage.alt = "trash";
   trashImage.className = "main__gallery-trash";
   deleteButton.appendChild(trashImage);
@@ -184,28 +194,7 @@ addPlaceForm.addEventListener("submit", function (evt) {
   closeEdit();
 });
 
-const galleryImages = document.querySelectorAll(".main__gallery-image");
-galleryImages.forEach(function (image) {
-  image.addEventListener("click", function () {
-    console.log("Imagen clickeada:", image.src);
-    openImagePopup(image.src, image.alt);
-  });
-});
-
 const likeButton = document.querySelectorAll(".main__gallery-like");
-const likeButtons = document.querySelectorAll(".main__gallery-like");
-
-likeButtons.forEach(function (likeButton) {
-  likeButton.addEventListener("click", function () {
-    if (likeButton.classList.contains("main__gallery-like_active")) {
-      likeButton.src = "./images/Vector.svg";
-      likeButton.classList.remove("main__gallery-like_active");
-    } else {
-      likeButton.src = "./images/Vector-filled.svg";
-      likeButton.classList.add("main__gallery-like_active");
-    }
-  });
-});
 
 document.querySelectorAll(".main__delete-button").forEach((button) => {
   button.addEventListener("click", function () {
@@ -214,3 +203,109 @@ document.querySelectorAll(".main__delete-button").forEach((button) => {
     this.parentElement.parentElement.remove();
   });
 });
+
+initialCards.forEach((card) => {
+  const nuevaTarjeta = createCard(card.name, card.link);
+  cardsContainer.append(nuevaTarjeta);
+});
+
+const validationConfig = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-button",
+  inactiveButtonClass: "form__submit_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+};
+
+function showInputError(formElement, inputElement, errorMessage, config) {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  console.log("Error element found:", errorElement); // ← Agrega esto
+  console.log("Error message:", errorMessage);
+
+  inputElement.classList.add(config.inputErrorClass);
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(config.errorClass);
+}
+
+function hideInputError(formElement, inputElement, config) {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+
+  inputElement.classList.remove(config.inputErrorClass);
+  errorElement.classList.remove(config.errorClass);
+  errorElement.textContent = "";
+}
+
+function getCustomErrorMessage(inputElement) {
+  if (inputElement.validity.valueMissing) {
+    return "Este campo es obligatorio";
+  }
+  if (inputElement.validity.tooShort) {
+    return `Debe tener al menos ${inputElement.minLength} caracteres`;
+  }
+  if (inputElement.validity.typeMismatch) {
+    return "Introduce una URL válida";
+  }
+  return "Campo inválido";
+}
+
+function checkInputValidity(formElement, inputElement, config) {
+  if (!inputElement.validity.valid) {
+    console.log(getCustomErrorMessage(inputElement));
+
+    showInputError(
+      formElement,
+      inputElement,
+      getCustomErrorMessage(inputElement),
+      config
+    );
+  } else {
+    hideInputError(formElement, inputElement, config);
+  }
+}
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function toggleButtonState(inputList, buttonElement, config) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+}
+
+function setEventListeners(formElement, config) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+
+  toggleButtonState(inputList, buttonElement, config);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("invalid", (evt) => {
+      evt.preventDefault();
+    });
+
+    inputElement.addEventListener("input", () => {
+      checkInputValidity(formElement, inputElement, config);
+      toggleButtonState(inputList, buttonElement, config);
+    });
+  });
+}
+
+function enableValidation(config) {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, config);
+  });
+}
+
+enableValidation(validationConfig);

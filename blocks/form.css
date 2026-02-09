@@ -1,0 +1,20 @@
+.popup .form__input-error {
+  color: #ff0000 !important;
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 5px;
+  display: none;
+  opacity: 0;
+}
+.popup .form__input-error_active {
+  display: block !important;
+  opacity: 1 !important;
+  color: #ff0000 !important;
+  margin-top: -25px;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+
+.form__input_type_error {
+  border: 1px solid #ff0000;
+}
