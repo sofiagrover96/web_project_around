@@ -25,187 +25,45 @@ const initialCards = [
   },
 ];
 
-const popup = document.querySelector("#edit-profile-popup");
-let popBuClose = document.querySelectorAll(".popup__button_close");
 let editProfileForm = document.querySelector('form[name="edit-profile"]');
-let popInName = document.querySelector(".popup__input_name");
-let popInAbout = document.querySelector(".popup__input_about");
-let mainBuEdit = document.querySelector(".main__button_edit");
-let mainPaName = document.querySelector(".main__paragraph-title");
-let mainPaAbout = document.querySelector(".main__paragraph-subtitle");
-
-function openEdit() {
-  popInName.value = mainPaName.textContent;
-  popInAbout.value = mainPaAbout.textContent;
-  popup.classList.toggle("popup_opened");
-  console.log("popup_opened");
-}
-
-function closeEdit() {
-  const openPopups = document.querySelectorAll(".popup_opened");
-  openPopups.forEach((popup) => {
-    popup.classList.remove("popup_opened");
-  });
-}
-
-function addCloseOnOverlay(popup, closeFunction) {
-  popup.addEventListener("mousedown", (evt) => {
-    if (evt.target === popup) {
-      closeFunction();
-    }
-  });
-}
-
-const editPopup = document.querySelector("#edit-profile-popup");
-const addPlacePopup = document.querySelector("#add-place-popup");
-
-addCloseOnOverlay(editPopup, closeEdit);
-addCloseOnOverlay(addPlacePopup, closeEdit);
-
-mainBuEdit.addEventListener("click", openEdit);
-popBuClose.forEach((button) => {
-  button.addEventListener("click", closeEdit);
-});
 
 function saveChange(e) {
   e.preventDefault();
   mainPaName.textContent = popInName.value;
   mainPaAbout.textContent = popInAbout.value;
-  openEdit();
-
-  console.log("Botón encontrado:", addButton);
-  console.log("Popup encontrado:", addPlacePopup);
+  closeEdit();
 }
-
-const addButton = document.querySelector(".main__button_add");
-
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-}
-
-addButton.addEventListener("click", () => {
-  openPopup(addPlacePopup);
-});
 
 editProfileForm.addEventListener("submit", saveChange);
 
-function addLikeListener(likeImage) {
-  likeImage.addEventListener("click", function () {
-    if (likeImage.classList.contains("main__gallery-like_active")) {
-      likeImage.src = "./images/Vector.svg";
-      likeImage.classList.remove("main__gallery-like_active");
-    } else {
-      likeImage.src = "./images/Vector-filled.svg";
-      likeImage.classList.add("main__gallery-like_active");
-    }
-  });
-}
-
-function createCard(name, link) {
-  const cardElement = document.createElement("div");
-  cardElement.className = "main__gallery-card";
-
-  const imageElement = document.createElement("img");
-  imageElement.src = link;
-  imageElement.alt = `paisaje ${name}`;
-  imageElement.className = "main__gallery-image";
-  cardElement.appendChild(imageElement);
-
-  imageElement.addEventListener("click", function () {
-    openImagePopup(link, `paisaje de ${name}`);
-  });
-
-  const contentElement = document.createElement("div");
-  contentElement.className = "main__gallery-content";
-  cardElement.appendChild(contentElement);
-
-  const textElement = document.createElement("p");
-  textElement.textContent = name;
-  textElement.className = "main__gallery-paragraph";
-  contentElement.appendChild(textElement);
-
-  const likeButton = document.createElement("button");
-  likeButton.className = "main__button main__button-like";
-  likeButton.type = "button";
-  contentElement.appendChild(likeButton);
-
-  likeButton.className = "main__button main__button-like";
-  likeButton.type = "button";
-
-  const likeImage = document.createElement("img");
-  likeImage.src = "./images/Vector.svg";
-  likeImage.alt = "like";
-  likeImage.className = "main__gallery-like";
-  likeButton.appendChild(likeImage);
-
-  addLikeListener(likeImage);
-
-  contentElement.appendChild(likeButton);
-
-  const deleteButton = document.createElement("button");
-  deleteButton.className = "main__delete-button";
-  deleteButton.type = "button";
-
-  const trashImage = document.createElement("img");
-  trashImage.src = "./images/trash.svg";
-  trashImage.alt = "trash";
-  trashImage.className = "main__gallery-trash";
-  deleteButton.appendChild(trashImage);
-
-  contentElement.appendChild(deleteButton);
-
-  deleteButton.addEventListener("click", function () {
-    cardElement.remove();
-  });
-
-  return cardElement;
-}
-
-function openImagePopup(imageSrc, imageAlt) {
-  const imagePopup = document.querySelector(".popup_type_image");
-  const popupImage = imagePopup.querySelector(".popup__image");
-  const popupCaption = imagePopup.querySelector(".popup__caption");
-
-  popupImage.src = imageSrc;
-  popupImage.alt = imageAlt;
-  popupCaption.textContent = imageAlt;
-
-  imagePopup.classList.add("popup_opened");
-}
-
-const imagePopupCloseButton = document.querySelector(
-  ".popup_type_image .popup__close-button"
-);
-imagePopupCloseButton.addEventListener("click", closeEdit);
-
-const addPlaceForm = document.querySelector("#add-place-popup form");
+const addPlaceForm = document.querySelector("#add-place-form");
 const titleInput = document.querySelector(".popup__input_title");
 const imageInput = document.querySelector(".popup__input_imageURL");
 const cardsContainer = document.querySelector(".main__gallery");
 
-addPlaceForm.addEventListener("submit", function (evt) {
-  evt.preventDefault();
+function handleAddPlaceSubmit(e) {
+  e.preventDefault();
+
   const name = titleInput.value;
   const link = imageInput.value;
-  const nuevaTarjeta = createCard(name, link);
+
+  const card = new Card({ name, link }, "#card-template");
+  const nuevaTarjeta = card.generateCard();
+
   cardsContainer.prepend(nuevaTarjeta);
 
   addPlaceForm.reset();
   closeEdit();
-});
+}
 
-const likeButton = document.querySelectorAll(".main__gallery-like");
-
-document.querySelectorAll(".main__delete-button").forEach((button) => {
-  button.addEventListener("click", function () {
-    console.log("boton clickeado");
-    console.log(this.parentElement);
-    this.parentElement.parentElement.remove();
-  });
-});
+addPlaceForm.addEventListener("submit", handleAddPlaceSubmit);
 
 initialCards.forEach((card) => {
-  const nuevaTarjeta = createCard(card.name, card.link);
+  const cardInstance = new Card(
+    { name: card.name, link: card.link },
+    "#card-template"
+  );
+  const nuevaTarjeta = cardInstance.generateCard();
   cardsContainer.append(nuevaTarjeta);
 });
 
@@ -217,24 +75,6 @@ const validationConfig = {
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error_active",
 };
-
-function showInputError(formElement, inputElement, errorMessage, config) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  console.log("Error element found:", errorElement); // ← Agrega esto
-  console.log("Error message:", errorMessage);
-
-  inputElement.classList.add(config.inputErrorClass);
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(config.errorClass);
-}
-
-function hideInputError(formElement, inputElement, config) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-
-  inputElement.classList.remove(config.inputErrorClass);
-  errorElement.classList.remove(config.errorClass);
-  errorElement.textContent = "";
-}
 
 function getCustomErrorMessage(inputElement) {
   if (inputElement.validity.valueMissing) {
@@ -249,63 +89,8 @@ function getCustomErrorMessage(inputElement) {
   return "Campo inválido";
 }
 
-function checkInputValidity(formElement, inputElement, config) {
-  if (!inputElement.validity.valid) {
-    console.log(getCustomErrorMessage(inputElement));
+const editFormValidator = new FormValidator(validationConfig, editProfileForm);
+const addPlaceFormValidator = new FormValidator(validationConfig, addPlaceForm);
 
-    showInputError(
-      formElement,
-      inputElement,
-      getCustomErrorMessage(inputElement),
-      config
-    );
-  } else {
-    hideInputError(formElement, inputElement, config);
-  }
-}
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-}
-
-function toggleButtonState(inputList, buttonElement, config) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = true;
-  } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
-    buttonElement.disabled = false;
-  }
-}
-
-function setEventListeners(formElement, config) {
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
-
-  toggleButtonState(inputList, buttonElement, config);
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("invalid", (evt) => {
-      evt.preventDefault();
-    });
-
-    inputElement.addEventListener("input", () => {
-      checkInputValidity(formElement, inputElement, config);
-      toggleButtonState(inputList, buttonElement, config);
-    });
-  });
-}
-
-function enableValidation(config) {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-
-  formList.forEach((formElement) => {
-    setEventListeners(formElement, config);
-  });
-}
-
-enableValidation(validationConfig);
+editFormValidator.enableValidation();
+addPlaceFormValidator.enableValidation();

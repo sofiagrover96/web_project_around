@@ -4,6 +4,6 @@
 
 -NOMBRE PROYECTO: Alrededor de los EE.UU.
 -DESCRIPCION: Pagina interactiva en la los usuarios pueden añadir, eliminar o dar "me gusta" a las fotos.
--TECNOLOGIAS: html,css,Java Script,figma,diseño responsivo para diferentes dispositivos, fuentes con @font-face, CSS Grid Layout.
+-TECNOLOGIAS: html,css,Java Script,figma,diseño responsivo para diferentes dispositivos, fuentes con @font-face, CSS Grid Layout, programacion orientada a objetos,instalacion de un modulador local.
 -AUTOR: Ana Sofia Almeida Grover.
 -ENLACE GITHUB PAGES: https://sofiagrover96.github.io/web_project_around/

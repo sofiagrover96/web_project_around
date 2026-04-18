@@ -73,7 +73,7 @@
 }
 
 .main__button-like_active {
-  transition: transform 0.2s ease;
+  filter: brightness(0);
 }
 
 .main__button-like_active:hover {
