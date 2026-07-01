@@ -1,17 +1,26 @@
 .popup {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+
   width: 100vw;
   height: 100vh;
-  position: fixed;
-  align-items: center;
-  z-index: 1000;
-  color: black;
-  background-color: rgba(0, 0, 0, 0.5);
+
   justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
 .popup_opened {
   display: flex;
+}
+
+#image-popup {
+  justify-content: center;
+  align-items: center;
 }
 
 .popup__button {
@@ -22,11 +31,17 @@
 
 .popup__button_close {
   position: absolute;
-  font-size: 40px;
+  top: 10px;
+  right: 10px;
+
+  width: 30px;
+  height: 30px;
+
   border: none;
-  background-color: rgba(0, 0, 0, 0);
-  right: 290px;
-  top: 340px;
+  background: transparent;
+  color: black;
+  font-size: 30px;
+  cursor: pointer;
 }
 
 .popup__button-close:hover {
@@ -38,6 +53,7 @@
   max-width: 430px;
   background-color: #fff;
   border-radius: 10px;
+  position: relative;
 }
 
 .popup__subtitle {
@@ -73,13 +89,11 @@
   opacity: 0.5;
 }
 
-.popup__type_image {
-  max-width: 75vw;
-  max-height: 75vh;
-  flex-direction: column;
-  align-items: center;
+.popup__image-container {
   position: relative;
-  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .popup__image {
@@ -103,8 +117,6 @@
 }
 @media screen and (min-width: 320px) and (max-width: 585px) {
   .popup__button_close {
-    top: 200px;
-    left: 330px;
   }
 
   .popup__container {
@@ -127,8 +139,6 @@
 
 @media screen and (min-width: 585px) and (max-width: 880px) {
   .popup__button_close {
-    right: 200px;
-    top: 220px;
   }
 
   .popup__container {

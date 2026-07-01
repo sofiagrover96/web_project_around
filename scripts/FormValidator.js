@@ -1,4 +1,6 @@
-class FormValidator {
+console.log("FormValidator.js cargando");
+
+export default class FormValidator {
   constructor(settings, formElement) {
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
@@ -27,7 +29,7 @@ class FormValidator {
 
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(inputElement, getCustomErrorMessage(inputElement));
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
       this._hideInputError(inputElement);
     }

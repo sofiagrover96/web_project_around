@@ -66,10 +66,16 @@
   align-self: end;
 }
 
+.main__button_add:hover {
+  opacity: 0.5;
+}
+
 .main__button-like {
+  background: transparent;
   border: none;
-  height: 19px;
-  align-self: flex-end;
+  padding: 0;
+  cursor: pointer;
+  align-self: center;
 }
 
 .main__button-like_active {

@@ -1,73 +1,28 @@
-const editPopup = document.querySelector("#edit-profile-popup");
-const addPlacePopup = document.querySelector("#add-place-popup");
-const addButton = document.querySelector(".main__button_add");
-const imagePopupCloseButton = document.querySelector(
-  ".popup_type_image .popup__close-button"
-);
+console.log("utils.js cargando");
 
-let popBuClose = document.querySelectorAll(".popup__button_close");
-let popInName = document.querySelector(".popup__input_name");
-let popInAbout = document.querySelector(".popup__input_about");
-let mainBuEdit = document.querySelector(".main__button_edit");
-let mainPaName = document.querySelector(".main__paragraph-title");
-let mainPaAbout = document.querySelector(".main__paragraph-subtitle");
-
-const imagePopup = document.querySelector(".popup_type_image");
-const popupImage = imagePopup.querySelector(".popup__image");
-const popupCaption = imagePopup.querySelector(".popup__caption");
-
-function openEdit() {
-  popInName.value = mainPaName.textContent;
-  popInAbout.value = mainPaAbout.textContent;
-
-  openPopup(editPopup);
-}
-
-function closeEdit() {
-  const openPopups = document.querySelectorAll(".popup_opened");
-  openPopups.forEach((popup) => {
-    popup.classList.remove("popup_opened");
-  });
-  document.removeEventListener("keydown", handleEscClose);
-}
-function addCloseOnOverlay(popup, closeFunction) {
-  popup.addEventListener("mousedown", (evt) => {
-    if (evt.target === popup) {
-      closeFunction();
-    }
-  });
-}
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", handleEscClose);
-}
-function openImagePopup(imageSrc, imageAlt) {
-  popupImage.src = imageSrc;
-  popupImage.alt = imageAlt;
-  popupCaption.textContent = imageAlt;
-
-  imagePopup.classList.add("popup_opened");
-}
-
-mainBuEdit.addEventListener("click", openEdit);
-popBuClose.forEach((button) => {
-  button.addEventListener("click", closeEdit);
-});
-
-addButton.addEventListener("click", () => {
-  openPopup(addPlacePopup);
-});
-
-imagePopupCloseButton.addEventListener("click", closeEdit);
-
-addCloseOnOverlay(editPopup, closeEdit);
-addCloseOnOverlay(addPlacePopup, closeEdit);
-
-function handleEscClose(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    if (openedPopup) {
-      closeEdit();
-    }
-  }
-}
+export const initialCards = [
+  {
+    name: "Valle de Yosemite",
+    link: "https://images.unsplash.com/photo-1668241782930-d051b8decb17?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    name: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
+  },
+  {
+    name: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+  },
+  {
+    name: "Parque Nacional de la Vanoise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+  },
+];
