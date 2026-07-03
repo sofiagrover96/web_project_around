@@ -4,7 +4,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
-import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithForms from "../components/PopupWithForms.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { initialCards } from "../scripts/utils.js";
 
@@ -89,7 +89,7 @@ cardSection.renderItems();
 // POPUP EDIT PROFILE
 // ======================
 
-const profilePopup = new PopupWithForm(
+const profilePopup = new PopupWithForms(
   "#edit-profile-popup",
 
   (formData) => {
@@ -108,7 +108,7 @@ profilePopup.setEventListeners();
 // POPUP ADD PLACE
 // ======================
 
-const addPlacePopup = new PopupWithForm(
+const addPlacePopup = new PopupWithForms(
   "#add-place-popup",
 
   (formData) => {
