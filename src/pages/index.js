@@ -1,4 +1,4 @@
-console.log("INDEX.JS CARGANDO");
+
 
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
