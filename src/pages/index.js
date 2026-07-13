@@ -1,12 +1,9 @@
-
-
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import PopupWithForms from "../components/PopupWithForms.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import { initialCards } from "../scripts/utils.js";
 
 // ======================
 // SELECTORES
@@ -27,6 +24,33 @@ const aboutInput = document.querySelector(".popup__input_about");
 const titleInput = document.querySelector(".popup__input_title");
 
 const imageInput = document.querySelector(".popup__input_imageURL");
+
+const initialCards = [
+  {
+    name: "Valle de Yosemite",
+    link: "https://images.unsplash.com/photo-1668241782930-d051b8decb17?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    name: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
+  },
+  {
+    name: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+  },
+  {
+    name: "Parque Nacional de la Vanoise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+  },
+];
 
 // ======================
 // CONFIG VALIDATION

@@ -1,5 +1,3 @@
-console.log("Card.js cargando");
-
 export default class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
@@ -40,8 +38,6 @@ export default class Card {
     });
 
     cardImage.addEventListener("click", () => {
-      console.log("click imagen");
-
       this._handleCardClick(this._name, this._link);
     });
   }
