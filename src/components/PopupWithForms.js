@@ -1,5 +1,3 @@
-console.log("PopupWithForm.js cargando");
-
 import Popup from "./Popup.js";
 
 export default class PopupWithForms extends Popup {

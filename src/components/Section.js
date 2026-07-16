@@ -1,5 +1,3 @@
-console.log("Section.js cargando");
-
 export default class Section {
   constructor({ items, renderer }, containerSelector) {
     this._items = items;

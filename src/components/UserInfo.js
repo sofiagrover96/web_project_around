@@ -1,5 +1,3 @@
-console.log("UserInfo.js cargando");
-
 export default class UserInfo {
   constructor(selectores) {
     this._nameElement = document.querySelector(selectores.nameSelector);
