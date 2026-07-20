@@ -1,5 +1,3 @@
-console.log("FormValidator.js cargando");
-
 export default class FormValidator {
   constructor(settings, formElement) {
     this._inputSelector = settings.inputSelector;

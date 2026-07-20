@@ -18,3 +18,8 @@
 .form__input_type_error {
   border: 1px solid #ff0000;
 }
+
+.form__submit_disbled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}

@@ -86,27 +86,23 @@ const userInfo = new UserInfo({
 // SECTION + CARDS
 // ======================
 
+function createCard(item) {
+  const card = new Card(item, "#card-template", (name, link) => {
+    imagePopup.open(name, link);
+  });
+
+  return card.generateCard();
+}
+
 const cardSection = new Section(
   {
     items: initialCards,
 
-    renderer: (item) => {
-      const card = new Card(
-        item,
-        "#card-template",
-
-        (name, link) => {
-          imagePopup.open(name, link);
-        }
-      );
-
-      return card.generateCard();
-    },
+    renderer: createCard,
   },
 
   ".main__gallery"
 );
-
 cardSection.renderItems();
 
 // ======================
@@ -136,20 +132,10 @@ const addPlacePopup = new PopupWithForms(
   "#add-place-popup",
 
   (formData) => {
-    const card = new Card(
-      {
-        name: formData.title,
-        link: formData.imageURL,
-      },
-
-      "#card-template",
-
-      (name, link) => {
-        imagePopup.open(name, link);
-      }
-    );
-
-    const newCard = card.generateCard();
+    const newCard = createCard({
+      name: formData.title,
+      link: formData.imageURL,
+    });
 
     cardSection.addItem(newCard);
 
